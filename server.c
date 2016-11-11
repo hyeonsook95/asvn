@@ -46,7 +46,7 @@ void main()
 		temp[n] = '\0';
 		tt = (test*)temp;
 
-		printf("test: (char)%s, (int)%d\n", tt.s, tt.num);
+		printf("test: (char)%s, (int)%d\n", tt->s, tt->num);
 		
 		close(c_sck);
 	}
