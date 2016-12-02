@@ -6,12 +6,21 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+<<<<<<< HEAD
 #include <sys/stat.h>////////////////////////////
 #include <fcntl.h>
 #include <pwd.h>/////////////////////////
 #include <netinet/in.h>
 #include <time.h>
 #include <dirent.h>///////////////////////////
+=======
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <pwd.h>
+#include <netinet/in.h>
+#include <time.h>
+#include <dirent.h>
+>>>>>>> 33323cd91f55531a356d55360d6b0c002bff47d5
 
 #ifndef BSIZE
   #define BSIZE 1024
@@ -71,10 +80,16 @@ typedef enum cmdlist
   ABOR, CWD, DELE, LIST, MDTM, MKD, NLST, PASS, PASV,
   PORT, PWD, QUIT, RETR, RMD, RNFR, RNTO, SITE, SIZE,
   STOR, TYPE, USER, NOOP
+<<<<<<< HEAD
 } cmdlist;//RMD, RNFR, RNTO, SITE, SIZE,STOR, TYPE, USER, NOOP
   
 
 /* String mappings for cmdlist *///주소의 배열로 저장하니 주솟값으로 저장이 되어있을 듯 
+=======
+} cmdlist;
+
+/* String mappings for cmdlist */
+>>>>>>> 33323cd91f55531a356d55360d6b0c002bff47d5
 static const char *cmdlist_str[] = 
 {
   "ABOR", "CWD", "DELE", "LIST", "MDTM", "MKD", "NLST", "PASS", "PASV",
@@ -118,3 +133,9 @@ void ftp_abor(State *);
 
 void str_perm(int, char *);
 void my_wait(int);
+<<<<<<< HEAD
+=======
+
+void dir_mk(char* dname);
+void hs_cret(Command *, State *);
+>>>>>>> 33323cd91f55531a356d55360d6b0c002bff47d5
