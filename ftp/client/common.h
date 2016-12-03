@@ -6,22 +6,13 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-<<<<<<< HEAD
 #include <sys/stat.h>////////////////////////////
 #include <fcntl.h>
 #include <pwd.h>/////////////////////////
 #include <netinet/in.h>
 #include <time.h>
 #include <dirent.h>///////////////////////////
-=======
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <pwd.h>
-#include <netinet/in.h>
-#include <time.h>
-#include <dirent.h>
->>>>>>> 33323cd91f55531a356d55360d6b0c002bff47d5
-
+#include <errno.h>
 #ifndef BSIZE
   #define BSIZE 1024
 #endif
@@ -79,26 +70,16 @@ typedef enum cmdlist
 { 
   ABOR, CWD, DELE, LIST, MDTM, MKD, NLST, PASS, PASV,
   PORT, PWD, QUIT, RETR, RMD, RNFR, RNTO, SITE, SIZE,
-<<<<<<< HEAD
-  STOR, TYPE, USER, NOOP, CRET
-=======
   STOR, TYPE, USER, NOOP
-<<<<<<< HEAD
 } cmdlist;//RMD, RNFR, RNTO, SITE, SIZE,STOR, TYPE, USER, NOOP
   
 
 /* String mappings for cmdlist *///주소의 배열로 저장하니 주솟값으로 저장이 되어있을 듯 
-=======
->>>>>>> cf00542ea63e11eea887dee854807a20cdb33349
-} cmdlist;
-
-/* String mappings for cmdlist */
->>>>>>> 33323cd91f55531a356d55360d6b0c002bff47d5
 static const char *cmdlist_str[] = 
 {
   "ABOR", "CWD", "DELE", "LIST", "MDTM", "MKD", "NLST", "PASS", "PASV",
   "PORT", "PWD", "QUIT", "RETR", "RMD", "RNFR", "RNTO", "SITE", "SIZE",
-  "STOR", "TYPE", "USER", "NOOP", "CRET"
+  "STOR", "TYPE", "USER", "NOOP" 
 };
 
 /* Valid usernames for anonymous ftp */
@@ -114,6 +95,7 @@ static char *welcome_message = "A very warm welcome!";
 void gen_port(Port *);
 void parse_command(char *, Command *);
 int create_socket(int port);
+int create_csocket(int port);
 void write_state(State *);
 int accept_connection(int);
 
@@ -134,12 +116,9 @@ void ftp_size(Command *, State *);
 void ftp_quit(State *);
 void ftp_type(Command *, State *);
 void ftp_abor(State *);
+int readn(int sd,char *ptr,int size);
+int writen(int sd,const void *ptr,int size);
+
 
 void str_perm(int, char *);
 void my_wait(int);
-<<<<<<< HEAD
-=======
-
-void dir_mk(char* dname);
-void hs_cret(Command *, State *);
->>>>>>> 33323cd91f55531a356d55360d6b0c002bff47d5
