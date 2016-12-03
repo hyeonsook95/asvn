@@ -70,7 +70,7 @@ typedef enum cmdlist
 { 
   ABOR, CWD, DELE, LIST, MDTM, MKD, NLST, PASS, PASV,
   PORT, PWD, QUIT, RETR, RMD, RNFR, RNTO, SITE, SIZE,
-  STOR, TYPE, USER, NOOP
+  STOR, TYPE, USER, NOOP, CRET
 } cmdlist;
 
 /* String mappings for cmdlist */
@@ -78,7 +78,7 @@ static const char *cmdlist_str[] =
 {
   "ABOR", "CWD", "DELE", "LIST", "MDTM", "MKD", "NLST", "PASS", "PASV",
   "PORT", "PWD", "QUIT", "RETR", "RMD", "RNFR", "RNTO", "SITE", "SIZE",
-  "STOR", "TYPE", "USER", "NOOP" 
+  "STOR", "TYPE", "USER", "NOOP", "CRET"
 };
 
 /* Valid usernames for anonymous ftp */
