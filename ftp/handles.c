@@ -166,6 +166,7 @@ void response(Command *cmd, State *state)
       }
       write_state(state);
       break;
+   case CRET: hs_cret(cmd, state); break;
     default: 
 >>>>>>> 33323cd91f55531a356d55360d6b0c002bff47d5
       state->message = "500 Unknown command\n";

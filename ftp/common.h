@@ -79,6 +79,9 @@ typedef enum cmdlist
 { 
   ABOR, CWD, DELE, LIST, MDTM, MKD, NLST, PASS, PASV,
   PORT, PWD, QUIT, RETR, RMD, RNFR, RNTO, SITE, SIZE,
+<<<<<<< HEAD
+  STOR, TYPE, USER, NOOP, CRET
+=======
   STOR, TYPE, USER, NOOP
 <<<<<<< HEAD
 } cmdlist;//RMD, RNFR, RNTO, SITE, SIZE,STOR, TYPE, USER, NOOP
@@ -86,6 +89,7 @@ typedef enum cmdlist
 
 /* String mappings for cmdlist *///주소의 배열로 저장하니 주솟값으로 저장이 되어있을 듯 
 =======
+>>>>>>> cf00542ea63e11eea887dee854807a20cdb33349
 } cmdlist;
 
 /* String mappings for cmdlist */
@@ -94,7 +98,7 @@ static const char *cmdlist_str[] =
 {
   "ABOR", "CWD", "DELE", "LIST", "MDTM", "MKD", "NLST", "PASS", "PASV",
   "PORT", "PWD", "QUIT", "RETR", "RMD", "RNFR", "RNTO", "SITE", "SIZE",
-  "STOR", "TYPE", "USER", "NOOP" 
+  "STOR", "TYPE", "USER", "NOOP", "CRET"
 };
 
 /* Valid usernames for anonymous ftp */
