@@ -10,45 +10,62 @@ char welcome[BSIZE] ;
 int sock = create_csocket(port);
 int connection, pid, bytes_read;
 char buffer[BSIZE];
+char * welcomed_message="";
 int msg;
+int chk;
 char * server_addr = "127.0.0.1";
 
 Command *cmd = malloc(sizeof(Command));
 State *state = malloc(sizeof(State));
 state->logged_in =1; 
 memset(buffer,0,BSIZE);
-//connection success
+
 if((read(sock,welcome,BSIZE)) <0){
-	printf("server :  read error %d \n", errno); 
+	 printf("server :  read error %d \n", errno); 
 	exit(0);
 	}
-	printf("received : %s \n",welcome);
+	printf("[0] : %c [1] : %c [2] : %c",welcome[0],welcome[1],welcome[2]);
+printf("received : %s \n",welcome);
 
-	//throw command to Server
-	gets(buffer);
-	strcat(buffer,"\0");
-	if(write(sock,buffer,BSIZE)<0){
-	perror("write to server error\n");
-	exit(0);
+if(write(sock,welcomed_message,BSIZE)<0){
+perror("write to server error\n");
+exit(0);
+}else{
+
+}
+/*
+if(read(connection,(char*)msg,sizeof(msg))<0){
+perror("client read error\n");
+exit(1);
+}
+
+      /* Read commands from client
+      while (bytes_read = read(connection,buffer,BSIZE)){
+        signal(SIGCHLD,my_wait);
+        if(!(bytes_read>BSIZE)){
+          /* TODO: output this to log 
+          buffer[BSIZE-1] = '\0';
+          printf("User %s sent command: %s\n",(state->username==0)?"unknown":state->username,buffer);
+          parse_command(buffer,cmd);//명령어를 찾음.
+		printf("%s",cmd);
+          state->connection = connection;
+          
+          /* Ignore non-ascii char. Ignores telnet command 
+          if(buffer[0]<=127 || buffer[0]>=0){
+            response(cmd,state);
+          }
+          memset(buffer,0,BSIZE);
+          memset(cmd,0,sizeof(cmd));
+	}else{
+		perror("client:send");
 	}
-
-     /* Read commands-response from server */
-      while (bytes_read = read(sock,buffer,BSIZE)){
-	printf("received : %s \n",buffer);
-
-	//throw command to Server
-	gets(buffer);
-	strcat(buffer,"\0");
-	if(write(sock,buffer,BSIZE)<0){
-	perror("client read error\n");
-	exit(1);
-	}//if
-	}//while 
-sprintf(buffer,"Client disconnected.\n");
-        write(sock,buffer,BSIZE);
+	} 
+      printf("Client disconnected.\n");
+      exit(0);
+	{
+      printf("closing... :(\n");
       close(connection);
-
-
+    }*/
 }
 
 /**
