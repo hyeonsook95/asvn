@@ -1,6 +1,6 @@
 #include "common.h"
 
-/*new*/
+/*delete??*/
 void asvn_remove(Command *cmd, State *state)
 {
 	if (remove(cmd->arg) ==-1){
@@ -11,7 +11,7 @@ void asvn_remove(Command *cmd, State *state)
 	write_log(cmd, state);
 }
 
-/*new*/
+/*현재 위치 출력*/
 void asvn_pwd(Command *cmd, State *state)
 {
 	char currentpath[BSIZE];
@@ -49,7 +49,10 @@ void asvn_readlog(Command *cmd, State *state)
 
 	
 }
-/*new*/
+/*
+* directory 생성
+* 생성한 directory를 log에 기록
+*/
 void asvn_mkdir(Command *cmd, State *state)
 {
 	char *dirpath = NULL;
