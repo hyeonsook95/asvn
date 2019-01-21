@@ -38,7 +38,11 @@ typedef struct State
 
 } State;
 
-/* Command struct */
+/* Command struct
+* COMMAND: 10자 내외로 이루어진 명령어를 받는 변수
+* ARG: 주소가 필요한 명령어일 경우, 해당되는 주소값을 받는 변수
+* CMT: 사용자의 COMMENT가 필요한 명령어일 경우 COMMENT를 받는 변수
+*/
 typedef struct Command
 {
   char command[10];
@@ -46,18 +50,20 @@ typedef struct Command
   char cmt[BSIZE];
 } Command;
 
-/* Commands enumeration */
+/* Commands enumeration 
+* 명령어를 입력받고 처리할때 오류를 방지하기 위한 ENUMERATION
+*/
 typedef enum cmdlist 
 { 
   LOG, CREAT, COMMIT, CHECKOUT, UPDATE, PWD, QUIT, MKDIR, DELETE, ADD,
-  MV, DIFF, MERGE
+  MV, DIFF, MERGE, UP
 } cmdlist;
 
 /* String mappings for cmdlist */
 static const char *cmdlist_str[] = 
 {
    "LOG", "CREAT", "COOMIT", "CHECKOUT", "UPDATE", "PWD", "QUIT", "MKDIR", "DELETE", "ADD", 
-   "MV", "DIFF", "MERGE"
+   "MV", "DIFF", "MERGE", "UP"
 };
 
 static char *welcome_message = "A very warm welcome!";
