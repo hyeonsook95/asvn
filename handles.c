@@ -1,6 +1,8 @@
 #include "common.h"
 
-/*delete??*/
+/*
+* 파일 or 디렉토리를 삭제하고 로그에 
+*/
 void asvn_remove(Command *cmd, State *state)
 {
 	if (remove(cmd->arg) ==-1){
