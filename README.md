@@ -29,4 +29,4 @@ svn protocol 참조 : https://svn.apache.org/repos/asf/subversion/trunk/subversi
 
   https://wiki.kldp.org/wiki.php/SubversionBook -> 전체적으로 svn을 책으로 정리
 
-  https://github.com/Siim/ftp/blob/master/README.md
+* https://github.com/Siim/ftp/blob/master/README.md
