@@ -1,3 +1,5 @@
+//client_common.h
+//portê°€ ìˆìœ¼ë‹ˆê¹Œ.. serverì¸ê°€....
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <string.h>
@@ -6,13 +8,14 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <sys/stat.h>////////////////////////////
+#include <sys/stat.h>
 #include <fcntl.h>
-#include <pwd.h>/////////////////////////
+#include <pwd.h>
 #include <netinet/in.h>
 #include <time.h>
-#include <dirent.h>///////////////////////////
+#include <dirent.h>
 #include <errno.h>
+
 #ifndef BSIZE
   #define BSIZE 1024
 #endif
@@ -74,7 +77,7 @@ typedef enum cmdlist
 } cmdlist;//RMD, RNFR, RNTO, SITE, SIZE,STOR, TYPE, USER, NOOP
   
 
-/* String mappings for cmdlist *///ÁÖ¼ÒÀÇ ¹è¿­·Î ÀúÀåÇÏ´Ï ÁÖ¼Ú°ªÀ¸·Î ÀúÀåÀÌ µÇ¾îÀÖÀ» µí 
+/* String mappings for cmdlist *///ÃÃ–Å’Ã’Ã€Ã‡ Â¹Ã¨Â¿Â­Â·Ã Ã€ÃºÃ€Ã¥Ã‡ÃÅ½Ã ÃÃ–Å’ÃšÂ°ÂªÃ€Å¾Â·Ã Ã€ÃºÃ€Ã¥Ã€ÃŒ ÂµÃ‡Å¸Ã®Ã€Ã–Ã€Â» ÂµÃ­ 
 static const char *cmdlist_str[] = 
 {
   "ABOR", "CWD", "DELE", "LIST", "MDTM", "MKD", "NLST", "PASS", "PASV",

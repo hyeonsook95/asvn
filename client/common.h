@@ -1,5 +1,6 @@
+//asvn_common.h
+//그럼 이게 client인가.
 #define HANDLES_H
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
