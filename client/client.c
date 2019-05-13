@@ -40,6 +40,7 @@ void client(int port, int cport)
 
       /* Write welcome message */
       strcat(welcome,"\n");
+
     write(connection, welcome,strlen(welcome));
 
       /* Read commands from client 

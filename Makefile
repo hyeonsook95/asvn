@@ -7,8 +7,8 @@ asvn.o: asvn.c
 handles.o: handles.c
 	@gcc -c -o handles.o handles.c
 
-ainit: ainit.c
-	@gcc -o ainit ainit.c
+init: init.c
+	@gcc -o init init.c
 
 clean:
 	@rm -rf *.o asvn

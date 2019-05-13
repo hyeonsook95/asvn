@@ -40,7 +40,7 @@ void parse_command(int argc, char **args, Command *cmd)
 	
 	return;
 }
-
+// 로그 생성
 void creat_log(Command *cmd, State *state, char temp[500])
 {
 	time_t timer=time(NULL);
@@ -65,27 +65,6 @@ void creat_log(Command *cmd, State *state, char temp[500])
 	strcat(temp, "\n");
 
 }
-/*
-void rename_path(char *path)
-{
-
-	char *cmdpath = malloc(sizeof(char)*BSIZE);
-	
-	memset(cmdpath, '\0', BSIZE);
-	strcpy(cmdpath, path);
-
-	if(strstr("./", cmdpath) ==0 || strchr('/', cmdpath) ==NULL){
-		if(strstr("./", cmdpath) ==0){
-			cmdpath = strtok(cmdpath, "/");
-			cmdpath = strtok(NULL, "/");
-		}
-		getcwd(path, 1024);
-		strcat(path, "/");
-	}
-
-	strcat(path, cmdpath);
-	printf("rename_path path: %s\n", path);
-}*/
 
 /*new*/
 void write_log(Command* cmd, State *state)
@@ -136,7 +115,9 @@ int lookup(char *needle, const char **haystack, int count)
   }
   return -1;
 }
-/*new*/
+/*
+*
+*/
 void logfile(char path[100])
 {
 	char *asvnpath = NULL;
