@@ -1,6 +1,7 @@
 #include "common.h"
 /** 
  * Sets up server and handles incoming connections
+ * @type
  * @param port Server port
  */
 void client(int port, int cport)
@@ -78,6 +79,7 @@ void client(int port, int cport)
 
 /**
  * Creates socket on specified port and starts listening to this socket
+ * @type System def
  * @param port Listen on this port
  * @return int File descriptor for new socket
  */
@@ -114,6 +116,7 @@ int create_socket(int port)
 
 /**
  * Accept connection from client
+ * @type System def
  * @param socket Server listens this
  * @return int File descriptor to accepted connection
  */
@@ -143,6 +146,7 @@ void getip(int sock, int *ip)
 
 /**
  * Lookup enum value of string
+ * @type
  * @param cmd Command string 
  * @return Enum index if command found otherwise -1
  */
@@ -156,9 +160,11 @@ int lookup_cmd(char *cmd){
  * General lookup for string arrays
  * It is suitable for smaller arrays, for bigger ones trie is better
  * data structure for instance.
+ * @type
  * @param needle String to lookup
  * @param haystack Strign array
  * @param count Size of haystack
+ * @return 
  */
 int lookup(char *needle, const char **haystack, int count)
 { 
@@ -172,6 +178,8 @@ int lookup(char *needle, const char **haystack, int count)
 
 /** 
  * Writes current state to client
+ * @type
+ * @param user's state, logged_in,username ...
  */
 void write_state(State *state)
 {
@@ -180,7 +188,7 @@ void write_state(State *state)
 
 /**
  * Generate random port for passive mode
- * @param state Client state
+ * @param 
  */
 void gen_port(Port *port)
 {

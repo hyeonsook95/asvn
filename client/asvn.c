@@ -1,8 +1,10 @@
 #include "common.h"
 
-/* args[1] = command, args[2] = orgpath, (args[3] = newpath, args[4~] = cmt)
-** Parse inputed command from user
-*/
+/**
+ * Parse inputed command from user
+ * @type System def
+ * @param args[1] = command, args[2] = orgpath, (args[3] = newpath, args[4~] = cmt)
+ */
 void parse_command(int argc, char **args, Command *cmd)
 {
 	int n = argc - 2;
@@ -40,7 +42,11 @@ void parse_command(int argc, char **args, Command *cmd)
 	
 	return;
 }
-// 로그 생성
+/**
+ * Create log contents
+ * @type System def
+ * @param Command = command,arg,cmt ..., State = user's logged_in,username ..., temp = ??
+ */
 void creat_log(Command *cmd, State *state, char temp[500])
 {
 	time_t timer=time(NULL);
@@ -64,9 +70,14 @@ void creat_log(Command *cmd, State *state, char temp[500])
 	strcat(temp, cmd->cmt);
 	strcat(temp, "\n");
 
+        return;
 }
 
-/*new*/
+/**
+ * Logging to '/home/username/asvn/repos' file
+ * @type System def
+ * @param Command = command,arg,cmt ..., State = user's logged_in,username ...
+ */
 void write_log(Command* cmd, State *state)
 {
 	char path[200];
@@ -101,12 +112,28 @@ void write_log(Command* cmd, State *state)
 	}
 }
 
+/**
+ * 
+ * @type System def
+ * @param cmd = arg of a command inputed from user
+ * @return 
+ */
 int lookup_cmd(char *cmd){
   const int cmdlist_count = sizeof(cmdlist_str)/sizeof(char *);
   int a = lookup(cmd, cmdlist_str, cmdlist_count);
   return a;
 }
 
+/**
+ * General lookup for string arrays
+ * It is suitable for smaller arrays, for bigger ones trie is better
+ * data structure for instance.
+ * @type
+ * @param needle String to lookup
+ * @param haystack Strign array
+ * @param count Size of haystack
+ * @return 
+ */
 int lookup(char *needle, const char **haystack, int count)
 { 
   int i;
@@ -115,9 +142,13 @@ int lookup(char *needle, const char **haystack, int count)
   }
   return -1;
 }
-/*
-*
-*/
+
+/**
+ *
+ * @type
+ * @param
+ * @return 
+ */
 void logfile(char path[100])
 {
 	char *asvnpath = NULL;
@@ -148,7 +179,6 @@ void logfile(char path[100])
 }
 
 
-/*main!*/
 void main(int argc, char* args[])
 {
    Command *cmd = malloc(sizeof(Command));
