@@ -42,35 +42,30 @@ void parse_command(int argc, char **args, Command *cmd)
 	
 	return;
 }
+
 /**
- * Create log contents
+ * Creat log contents
  * @type System def
- * @param Command = command,arg,cmt ..., State = user's logged_in,username ..., temp = ??
+ * @param Command Executed command
+ * @param State Status of the user who executed the command
+ * @param content Log content, Executed result
  */
-void creat_log(Command *cmd, State *state, char temp[500])
+
+void creat_log(Command *cmd, State *state, char *content)
 {
-	time_t timer=time(NULL);
-	struct tm *t;
+  time_t timer=time(NULL);
+  struct tm *t;
 
-	char current_time[20];
+  char current_time[20];
 
-	memset(temp, '\0', BSIZE);
-	
-	/*set current_time*/
-	t = localtime(&timer);
-	sprintf(current_time, "%d-%d-%d-%d:%d:%d", t->tm_year+1900, t->tm_mon+1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
-	
-	/*set log [date, username, cmd, cmt]*/
-	strcat(temp, current_time);
-	strcat(temp, " ");
-	strcat(temp, cmd->command);
-	strcat(temp, " ");
-	strcat(temp, cmd->arg);
-	strcat(temp, " ");
-	strcat(temp, cmd->cmt);
-	strcat(temp, "\n");
+  memset(content, '\0', BSIZE);
 
-        return;
+  /* set current time */
+  t = localtime(&timer);
+  sprintf(current_time, "%4d-%2d-%2d-%2d:%2d:%2d", t->tm_year+1900, t->tm_mon+1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
+
+  /* set log [date, username, cmd, cmt] */
+  sprintf(content, "%s %s %s %s\n", current_time, state->username, cmd->command, cmd->comment)
 }
 
 /**
@@ -81,7 +76,7 @@ void creat_log(Command *cmd, State *state, char temp[500])
 void write_log(Command* cmd, State *state)
 {
 	char path[200];
-	char logpath[BSIZE];
+	char path[BSIZE];
 	char temp[500];
 	FILE *fp_log;
 	
@@ -186,7 +181,7 @@ void main(int argc, char* args[])
    state->logged_in =1;
 
    strcpy(cmd->command, args[1]);
-
+   // main이 된 상태에서 입력값을 받아와서 넘겨줌
    parse_command(argc, args, cmd);
    
    if(cmd->command[0]<=127 && cmd->command[0]>=0){ //Is command ASKII code

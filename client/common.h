@@ -48,7 +48,7 @@ typedef struct Command
 {
   char command[10];
   char arg[BSIZE]; /*new*/
-  char cmt[BSIZE];
+  char comment[BSIZE];
 } Command;
 
 /* Commands enumeration 
