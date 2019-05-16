@@ -24,6 +24,36 @@
 	#define FAUTH 0644
 #endif
 
+
+/* Command struct
+* COMMAND: 10자 내외로 이루어진 명령어를 받는 변수
+* ARG: 주소가 필요한 명령어일 경우, 해당되는 주소값을 받는 변수
+* CMT: 사용자의 COMMENT가 필요한 명령어일 경우 COMMENT를 받는 변수
+*/
+typedef struct Command
+{
+  char command[10];
+  char arg[BSIZE];
+  char comment[BSIZE];
+} Command;
+
+/* Commands enumeration 
+* 명령어를 입력받고 처리할때 오류를 방지하기 위한 ENUMERATION
+*/
+typedef enum cmdlist 
+{ 
+  log, create, commit, checkout, update, mkdir, delete, add,
+  mv, diff, merge, up
+} cmdlist;
+
+/* String mappings for cmdlist */
+static const char *cmdlist_str[] = 
+{
+  "log", "create", "commit", "checkout", "update", "mkdir", "delete", "add",
+  "mv", "diff", "merge", "up"
+};
+
+
 typedef struct State
 {
 
@@ -39,34 +69,6 @@ typedef struct State
 
 } State;
 
-/* Command struct
-* COMMAND: 10자 내외로 이루어진 명령어를 받는 변수
-* ARG: 주소가 필요한 명령어일 경우, 해당되는 주소값을 받는 변수
-* CMT: 사용자의 COMMENT가 필요한 명령어일 경우 COMMENT를 받는 변수
-*/
-typedef struct Command
-{
-  char command[10];
-  char arg[BSIZE]; /*new*/
-  char comment[BSIZE];
-} Command;
-
-/* Commands enumeration 
-* 명령어를 입력받고 처리할때 오류를 방지하기 위한 ENUMERATION
-*/
-typedef enum cmdlist 
-{ 
-  LOG, CREAT, COMMIT, CHECKOUT, UPDATE, PWD, QUIT, MKDIR, DELETE, ADD,
-  MV, DIFF, MERGE, UP
-} cmdlist;
-
-/* String mappings for cmdlist */
-static const char *cmdlist_str[] = 
-{
-   "LOG", "CREAT", "COOMIT", "CHECKOUT", "UPDATE", "PWD", "QUIT", "MKDIR", "DELETE", "ADD", 
-   "MV", "DIFF", "MERGE", "UP"
-};
-
 static char *welcome_message = "A very warm welcome!";
 
 /*Don't use Network*/
@@ -80,7 +82,6 @@ void asvn_pwd(Command *, State *);
 void response(Command *, State *);
 void write_log(Command *, State *);
 void creat_log(Command *, State *, char []);
-
 
 int lookup_cmd(char *);
 int lookup(char *, const char **, int);

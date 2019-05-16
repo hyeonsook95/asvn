@@ -114,15 +114,48 @@ void ftp_quit(State *state)
   exit(0);
 }
 
+/*--------------------------------------------------------------------------------*/
+/**
+ * Lookup enum value of string
+ * @type
+ * @param cmd Command string 
+ * @return Enum index if command found otherwise -1
+ */
+int lookup(char *cmd, const char **haystack, int count)
+{
+  int i;
+  for(i=0; i<count; i++){
+    if(strcmp(cmd, haystack[i]) == 0) return i;
+  }
+  return -1;
+}
+
+/**
+ * General lookup for string arrays
+ * It is suitable for smaller arrays, for bigger ones trie is better
+ * data structure for instance.
+ * @type
+ * @param needle String to lookup
+ * @param haystack Strign array
+ * @param count Size of haystack
+ * @return lookup
+ */
+int lookup_cmd(char *cmd)
+{
+  const int cmdlist_count = sizeof(cmdlist_str) / sizeof(char *);
+
+  return lookup(cmd, cmdlist_str, cmdlist_count);
+}
+
 void response(Command *cmd, State *state)
 {
   switch(lookup_cmd(cmd->command)){ //user function -> command's enum number
-    case CREAT: asvn_creat(cmd,state); break;
-    case LOG: asvn_readlog(cmd,state); break;
-    case MKDIR: asvn_mkdir(cmd,state); break;
-    case DELETE: asvn_remove(cmd,state); break;
-    case PWD: asvn_pwd(cmd, state); break;
-    case QUIT: ftp_quit(state); break;
+    case create: asvn_creat(cmd,state); break;
+    case log: asvn_readlog(cmd,state); break;
+    case mkdir: asvn_mkdir(cmd,state); break;
+    case delete: asvn_remove(cmd,state); break;
+    case pwd: asvn_pwd(cmd, state); break;
+    case quit: ftp_quit(state); break;
     default:
       state->message = "500 Unknown command\n";
       //write_state(state);

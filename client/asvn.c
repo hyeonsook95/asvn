@@ -1,3 +1,4 @@
+// local user function
 #include "common.h"
 
 /**
@@ -43,30 +44,7 @@ void parse_command(int argc, char **args, Command *cmd)
 	return;
 }
 
-/**
- * Creat log contents
- * @type System def
- * @param Command Executed command
- * @param State Status of the user who executed the command
- * @param content Log content, Executed result
- */
 
-void creat_log(Command *cmd, State *state, char *content)
-{
-  time_t timer=time(NULL);
-  struct tm *t;
-
-  char current_time[20];
-
-  memset(content, '\0', BSIZE);
-
-  /* set current time */
-  t = localtime(&timer);
-  sprintf(current_time, "%4d-%2d-%2d-%2d:%2d:%2d", t->tm_year+1900, t->tm_mon+1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
-
-  /* set log [date, username, cmd, cmt] */
-  sprintf(content, "%s %s %s %s\n", current_time, state->username, cmd->command, cmd->comment)
-}
 
 /**
  * Logging to '/home/username/asvn/repos' file
@@ -173,19 +151,43 @@ void logfile(char path[100])
 	strcpy(path, logpath);
 }
 
+/**
+ * Creat log contents
+ * @type System def
+ * @param Command Executed command
+ * @param State Status of the user who executed the command
+ * @param content Log content, Executed result
+ */
+
+void creat_log(Command *cmd, State *state, char *content)
+{
+  time_t rawt;
+  struct tm *t;
+  char c_time[20];
+
+  memset(content, '\0', BSIZE);
+  memset(c_time, '\0', 20);
+
+  time(&rawt);
+  t = localtime(&rawt);
+  sprintf(c_time, "%4d-%2d-%2d-%2d:%2d:%2d", t->tm_year+1900, t->tm_mon+1, t->tm_mday, t->tm_hour, t->tm_min, t->tm_sec);
+
+  /* set log [date, username, cmd, cmt] */
+  sprintf(content, "%s %s %s %s\n", c_time, state->username, cmd->command, cmd->comment, state->message);
+}
 
 void main(int argc, char* args[])
 {
-   Command *cmd = malloc(sizeof(Command));
-   State *state = malloc(sizeof(State));
-   state->logged_in =1;
+  Command *cmd = malloc(sizeof(Command));
 
-   strcpy(cmd->command, args[1]);
-   // main이 된 상태에서 입력값을 받아와서 넘겨줌
-   parse_command(argc, args, cmd);
+  State *state = malloc(sizeof(State));
+  state->logged_in =1;
+
+  strcpy(cmd->command, args[1]);
+  strcpy(cmd->arg, args[2]);
+  strcpy(cmd->comment, args[3]);
    
-   if(cmd->command[0]<=127 && cmd->command[0]>=0){ //Is command ASKII code
-      response(cmd,state); //user function
-   }
-
+  if(cmd->command[0]<=127 && cmd->command[0]>=0){
+     response(cmd);
+  }
 }
