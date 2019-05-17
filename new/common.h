@@ -1,3 +1,4 @@
+#define LOCAL_H
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -32,16 +33,10 @@ typedef struct State
 
 typedef enum cmdlist
 {
-  log, commit, checkout, test
+  //
 } cmdlist;
 
 static const char *cmdlist_str[] = 
 {
-  "log", "commit", "checkout", "test"
+  //
 };
-
-
-/* System def */
-void parse_command();
-void write_log();
-void creat_log();
