@@ -176,16 +176,35 @@ void creat_log(Command *cmd, State *state, char *content)
   sprintf(content, "%s %s %s %s\n", c_time, state->username, cmd->command, cmd->comment, state->message);
 }
 
+void set_command(Command *cmd, int argc, char* args[])
+{
+  
+  switch(argc){
+    case 3: strcpy(cmd->command, args[1]);
+            strcpy(cmd->arg, args[2]); break;
+    case 4: strcpy(cmd->command, args[1]);
+            strcpy(cmd->arg, args[2]);
+            strcpy(cmd->comment, args[3]); break;
+    default: strcpy(cmd->command, args[1]); break;
+  }
+}
+
+void init(Command *cmd, State* state)
+{
+  Command cm = {.command = "\0", .arg = "\0", .comment = "\0"};
+  cmd = &cm;  
+
+  state->username = "\0";
+  state->message = "Have a nice day!";
+}
+
 void main(int argc, char* args[])
 {
   Command *cmd = malloc(sizeof(Command));
-
   State *state = malloc(sizeof(State));
-  state->logged_in =1;
 
-  strcpy(cmd->command, args[1]);
-  strcpy(cmd->arg, args[2]);
-  strcpy(cmd->comment, args[3]);
+  init(cmd, state);
+  set_command(cmd, argc, args);
    
   if(cmd->command[0]<=127 && cmd->command[0]>=0){
      response(cmd);

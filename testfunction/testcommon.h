@@ -25,11 +25,6 @@ typedef struct Command
   char comment[BSIZE];
 } Command;
 
-static const int cmd_size = 
-{
-  10, BSIZE, BSIZE
-};
-
 typedef struct State
 {
   char *username;

@@ -51,29 +51,47 @@ void response(Command *cmd)
   }
 }
 
-void refactory_command(int args, ...)
+void set_command(Command *cmd, int argc, char* args[])
 {
-  va_list ap;
+  
+  switch(argc){
+    case 3: strcpy(cmd->command, args[1]);
+            strcpy(cmd->arg, args[2]); break;
+    case 4: strcpy(cmd->command, args[1]);
+            strcpy(cmd->arg, args[2]);
+            strcpy(cmd->comment, args[3]); break;
+    default: strcpy(cmd->command, args[1]); break;
+  }
+}
 
-  va_start(ap, args);
-  for (int i = 0; i<args; i++){
-    
+void init(Command *cmd, State* state)
+{
+  Command cm = {.command = "\0", .arg = "\0", .comment = "\0"};
+  cmd = &cm;  
+
+  state->username = "\0";
+  state->message = "Have a nice day!";
 }
 
 void main(int argc, char* args[])
 {
-  Command cm = {args[1], args[2], args[3]};
+//  Command cm = {.command = "command", .arg = "anyware", .comment = "EOF"};
   Command *cmd = malloc(sizeof(Command));
+  State *state = malloc(sizeof(State));
+
+//  Command cmd = {.command = "\0", .arg = "\0", .comment = "\0"};
+//  State state = {.username = "\0", .message = "Have a nice day!"};
+
 
   // args의 개수가 몇개인지 확인
-  cmd = &cm;
+  printf("argc: %d\n\n", argc);
 
-/*  strcpy(cmd->command, args[1]);
-  strcpy(cmd->arg, args[2]);
-  strcpy(cmd->comment, args[3]);
-*/
+  init(cmd, state);
+  set_command(cmd, argc, args);
 
-//  printf("%s function\narg:%s\ncmt:%s\n", cmd->command, cmd->arg, cmd->comment);
+
+  printf("%s function\narg:%s\ncmt:%s\n\n", cmd->command, cmd->arg, cmd->comment);
+  printf("%s username\nmessage:%s\n", state->username, state->message);
 
   /* response */
   response(cmd);
