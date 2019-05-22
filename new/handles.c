@@ -38,16 +38,36 @@ void response(Command *cmd, State *state)
 {
   switch(lookup_cmd(cmd->command)){ //user function -> command's enum number
     case create: asvn_creat(cmd,state); break;
-    case log: asvn_readlog(cmd,state); break;
+/*    case log: asvn_readlog(cmd,state); break;
     case mkdir: asvn_mkdir(cmd,state); break;
     case delete: asvn_remove(cmd,state); break;
     case pwd: asvn_pwd(cmd, state); break;
-    case quit: ftp_quit(state); break;
+    case quit: ftp_quit(state); break;*/
     default:
       state->message = "500 Unknown command\n";
       break;
   }
 }
+
+int write_fp(char *path, char *temp)
+{
+  FILE *fp;
+
+  if((fp = fopen(path, "w")) == NULL){
+    fprintf(stderr, "%s file open error: %s\n", path, strerror(errno));
+    return -1;
+  }
+
+  if(fwrite(temp, strlen(temp), 1, fp) <= 0){
+    fprintf(stderr, "%s error: %s\n", temp, strerror(errno));
+    return -1;
+  }
+
+  fclose(fp);       
+
+  return 0;
+}
+
 
 /**
  * Creat log contents
@@ -75,7 +95,7 @@ void creat_log(Command *cmd, State *state, char *content)
 }
 
 /**
- * Logging to 'localref/.asvn/logs/LOG' file
+ * Logging to 'local_ref/.asvn/logs/LOG' file
  * @type System def
  * @param Command = command,arg,cmt ..., State = user's logged_in,username ...
  */
@@ -99,18 +119,9 @@ int save_log(Command* cmd, State *state)
   getcwd(path, sizeof(path));
   strcat(path, "/.asvn/logs/LOG");
 
+  creat_log(cmd, state, temp)
 
-  if((fp_log = fopen(path, "w")) == NULL){
-    fprintf(stderr, "%s file open error: %s\n", path, strerror(errno));
-    return -1;
-  }
-
-  if(fwrite(temp, strlen(temp), 1, fp_log) <= 0){
-    fprintf(stderr, "%s logging error: %s\n", temp, strerror(errno));
-    return -1;
-  }
-
-  fclose(fp_log);       
+  write_fp(path, temp)   
 }
 
 /**
@@ -150,12 +161,12 @@ void init(Command *cmd, State* state)
 void response(Command *cmd, State *state)
 {
   switch(lookup_cmd(cmd->command)){ //user function -> command's enum number
-    case create: asvn_creat(cmd,state); break;
-    case log: asvn_readlog(cmd,state); break;
+    case create: asvn_create(cmd,state); break;
+/*    case log: asvn_readlog(cmd,state); break;
     case mkdir: asvn_mkdir(cmd,state); break;
     case delete: asvn_remove(cmd,state); break;
     case pwd: asvn_pwd(cmd, state); break;
-    case quit: ftp_quit(state); break;
+    case quit: ftp_quit(state); break;*/
     default:
       state->message = "500 Unknown command\n";
       //write_state(state);
