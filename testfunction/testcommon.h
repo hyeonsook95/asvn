@@ -43,5 +43,5 @@ static const char *cmdlist_str[] =
 
 /* System def */
 void parse_command();
-void write_log();
 void creat_log();
+void save_log();
