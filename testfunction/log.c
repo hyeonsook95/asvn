@@ -1,5 +1,24 @@
 #include "testcommon.h"
 
+int write_fp(char *path, char *temp)
+{
+  FILE *fp;
+
+  if((fp = fopen(path, "w")) == NULL){
+    fprintf(stderr, "%s file open error: %s\n", path, strerror(errno));
+    return -1;
+  }
+
+  if(fwrite(temp, strlen(temp), 1, fp) <= 0){
+    fprintf(stderr, "%s error: %s\n", temp, strerror(errno));
+    return -1;
+  }
+
+  fclose(fp);       
+
+  return 0;
+}
+
 /**
  * Creat log contents
  * @type System def
@@ -39,30 +58,79 @@ log content를 생성한다.
 
 file에 log content를 기록한다.
 */
-int save_log(Command* cmd, State *state)
+void save_log(Command* cmd, State *state)
 {
   char path[BSIZE]; //log file
   char temp[BSIZE]; //log
-  FILE *fp_log;
 	
-  memset(path, '\0', 1024);
-  memset(temp, '\0', 1024);
+  memset(path, '\0', BSIZE);
+  memset(temp, '\0', BSIZE);
 	
   getcwd(path, sizeof(path));
   strcat(path, "/.asvn/logs/LOG");
 
+  strcpy(temp, "write fp function test\n");
+  
+  write_fp(path, temp);
+}
 
-  if((fp_log = fopen(path, "w")) == NULL){
-    fprintf(stderr, "%s file open error: %s\n", path, strerror(errno));
+int asvn_create(Command *cmd)
+{
+  char *path = malloc(sizeof(BSIZE));
+  char orgpath[1024];
+  char repos[BSIZE]; //repos
+
+
+  memset(orgpath, '\0', 1024);
+//  memset(path, '\0', 1024);
+  memset(repos, '\0', 1024);
+
+  if(getcwd(orgpath, sizeof(orgpath)) == NULL) {
+    fprintf(stderr, "Current working directory get error: %s\n", strerror(errno));
+    return -1;
+  }
+  printf("org: %s\n", orgpath);
+//  strcat(orgpath, cmd->arg);
+  strcpy(path, orgpath); //home/h/ref
+//  printf("path: %s\n", path);
+
+  //local .asvn folder 생성
+  strcat(path, "/.asvn\n");
+  printf("path/.asvn: %s\n", path);
+  if(mkdir(path, 0777) == -1) {
+    fprintf(stderr, "%s directory make error: %s\n", path, strerror(errno));
+    return -1;
+  }
+/*  
+  strcat(path, "/conf");
+  if(creat(path, 0644) == -1) {
+    fprintf(stderr, "%s file make error: %s\n", path, strerror(errno));
     return -1;
   }
 
-  if(fwrite(temp, strlen(temp), 1, fp_log) <= 0){
-    fprintf(stderr, "%s logging error: %s\n", temp, strerror(errno));
+  strcpy(path, orgpath);
+  strcat(path, "/logs");
+  if(mkdir(path, 0777) == -1) {
+    fprintf(stderr, "%s directory make error: %s\n", path, strerror(errno));
     return -1;
   }
 
-  fclose(fp_log);       
+  strcat(path, "/LOG");
+  if(creat(path, 0644) == -1) {
+    fprintf(stderr, "%s file make error: %s\n", path, strerror(errno));
+    return -1;
+  }
+
+  //pwd global repository에 기록
+  if((path = getenv("HOME")) == NULL) {
+    fprintf(stderr, "Current working directory get error: %s\n", strerror(errno));
+    return -1;
+  }
+
+  strcat(path, "/.asvn/repos");
+  write_fp(path, orgpath);*/
+  return 0;
+  
 }
 
 void main()
@@ -70,5 +138,7 @@ void main()
   Command *cmd = malloc(sizeof(Command));
   State *state = malloc(sizeof(State));
 
-  save_log(cmd, state);
+//  save_log(cmd, state);
+  asvn_create(cmd);
+
 }
