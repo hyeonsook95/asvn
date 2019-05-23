@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <sys/types.h>
+//#include <dirent.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -12,6 +13,8 @@
 #include <time.h>
 #include <dirent.h>
 #include <errno.h>
+
+#include <pthread.h>
 
 #ifndef BSIZE
   #define BSIZE 1024
@@ -39,6 +42,12 @@ static const char *cmdlist_str[] =
 {
   "log", "commit", "checkout", "test"
 };
+
+typedef struct Path
+{
+  char pwd[BSIZE];
+  char *path;
+} Path;
 
 
 /* System def */
