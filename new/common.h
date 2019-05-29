@@ -18,6 +18,12 @@
   #define BSIZE 1024
 #endif
 
+typedef struct Path
+{
+  char conf[BSIZE];
+  char path[BSIZE];
+} Path;
+
 typedef struct Command
 {
   char command[10];
@@ -40,5 +46,16 @@ static const char *cmdlist_str[] =
 {
   "create"
 };
+
+
+int lookup(char *, const char **, int);
+int lookup_cmd(char *);
+void response(Command *, State *);
+int write_ftp(char *, char*);
+void creat_log(Command *, State *);
+void save_log(Command *, State *);
+void set_command(Command *, int, char *);
+void init(Command *, State *);
+void scan_dir();
 
 void asvn_create(Command *, State *);

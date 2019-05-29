@@ -31,6 +31,7 @@ typedef struct State
 {
   char *username;
   char *message;  //명령 실행결과
+  char path[BSIZE];  //현재 저장소의 .svn/ path
 } State;
 
 typedef enum cmdlist
@@ -45,8 +46,8 @@ static const char *cmdlist_str[] =
 
 typedef struct Path
 {
-  char pwd[BSIZE];
-  char *path;
+  char conf[BSIZE];
+  char path[BSIZE];
 } Path;
 
 

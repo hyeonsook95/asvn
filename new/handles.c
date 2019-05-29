@@ -2,6 +2,93 @@
 #include "common.h"
 
 /**
+ * pwd
+ * @param pwd path
+ * @return erro number
+ */
+int c_pwd(char *p)
+{
+  char path[BSIZE];
+  memset(path, '\0', BSIZE);
+
+  if(getcwd(path, BSIZE) == NULL){
+    fprintf(stderr, "Current working directory get error: %s\n", strerror(errno));
+    exit(0);
+  {
+
+  strcpy(p, path);
+}
+
+/**
+ * thread for scan dir list
+ * @param struct Path{ conf: .asvn/info/struct path: opendir path }
+ */
+void* scan_thread(void *path)
+{
+  Path *p = path;
+
+  int thr_id;
+  int status;
+  pthread_t p_thread[1];
+
+  DIR *dir_ptr = NULL;
+  struct dirent *file = NULL;
+  struct stat buf;
+  char *ext;
+  char filename[BSIZE];
+
+  memset(filename, '\0', BSIZE);
+  strcpy(filename, p->path);
+
+  if((dir_ptr = opendir(filename)) == NULL){
+    exit(0);
+  }
+
+  while((file = readdir(dir_ptr)) != NULL){
+
+    if(strcmp(file->d_name, ".") == 0){
+      continue;
+    }
+    else if(strcmp(file->d_name, "..") == 0){
+      continue;
+    }
+
+    sprintf(p->path, "%s/%s", filename, file->d_name);
+
+    if(stat(p->path, &buf) == -1){
+      continue;
+    }
+
+    if(S_ISREG(buf.st_mode)){
+      write_fp(p->conf, p->path);
+    }
+    else if(S_ISDIR(buf.st_mode)){
+      thr_id = pthread_create(&p_thread[0], NULL, scan_thread, (Path *)p);
+
+      pthread_join(p_thread[0], (void **) &status);
+    }
+  }
+  closedir(dir_ptr);
+}
+
+/**
+ * scan dir list
+ * 파일의 추가 삭제시 변경된 파일의 내용을 기록하기 위한 함수
+ */
+void scan_dir()
+{
+  Path *p = malloc(sizeof(Path));
+
+  find_info(p->conf);
+
+  strcpy(p->path, p->conf);
+  strcat(p->conf, "/.asvn/info/struct");
+
+  scan_thread(p);
+  free(p);
+}
+
+/**
  * Lookup enum value of string
  * @type
  * @param cmd Command string 
@@ -34,26 +121,11 @@ int lookup_cmd(char *cmd)
 }
 
 
-void response(Command *cmd, State *state)
-{
-  switch(lookup_cmd(cmd->command)){ //user function -> command's enum number
-    case create: asvn_creat(cmd,state); break;
-/*    case log: asvn_readlog(cmd,state); break;
-    case mkdir: asvn_mkdir(cmd,state); break;
-    case delete: asvn_remove(cmd,state); break;
-    case pwd: asvn_pwd(cmd, state); break;
-    case quit: ftp_quit(state); break;*/
-    default:
-      state->message = "500 Unknown command\n";
-      break;
-  }
-}
-
 int write_fp(char *path, char *temp)
 {
   FILE *fp;
 
-  if((fp = fopen(path, "w")) == NULL){
+  if((fp = fopen(path, "a")) == NULL){
     fprintf(stderr, "%s file open error: %s\n", path, strerror(errno));
     return -1;
   }

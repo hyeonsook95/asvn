@@ -61,4 +61,7 @@ main(int argc, char* args[])
   if(cmd->command[0]<=127 && cmd->command[0]>=0){
      response(cmd);
   }
+
+  free(cmd);
+  free(state);
 }
