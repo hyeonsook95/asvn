@@ -48,6 +48,7 @@ int asvn_create(Command *cmd, Satate *state)
   sprintf(orgpath, "%s %s\n", orgpath, state->username);
   write_fp(path, orgpath);
 
+  free(path);
 }
 
 main(int argc, char* args[])

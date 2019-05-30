@@ -216,7 +216,7 @@ void set_command(Command *cmd, int argc, char* args[])
 }
 
 /**
- * To initialize Command and State
+ * To initialize Command and State ??서버아니면 필요없을듯
  * @param Command struct Command
  * @param argc Number of inputed variables
  * @param args Inputed command from user

@@ -8,12 +8,10 @@ FTP 프로그래밍을 이용하여 서버와 클라이언트 간의 파일 전�
 ## 구현된 기능
 ### 네트워크가 필요한 기능
 * create
-* checkout
 
 ### 네트워크가 필요하지 않은 기능
 * mkdir
 * delete
-* pwd
 * log
 
 ## 참고자료
@@ -41,7 +39,16 @@ svn protocol 참조 : https://svn.apache.org/repos/asf/subversion/trunk/subversi
 * commit
 * update
 
+* server, db update/user management etc..
+
 ### 네트워크가 필요하지 않은 기능
 * mv
 * add
 * diff
+* checkout
+* log
+
+### SQLlite3 사용
+* user db
+* file db
+* log db
