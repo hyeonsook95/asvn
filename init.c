@@ -1,3 +1,5 @@
+//asvnadmin
+//db생성
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,7 +27,7 @@ int main()
     return -1;
   }
 
-  strcat(path, "/.asvn");
+  strcat(path, "/asvn");
   strcpy(orgpath, path);
 
   if(mkdir(path, 0777) == -1) {
@@ -34,14 +36,14 @@ int main()
   }
   
 
-  /* .asvn/conf folder */
+  /* asvn/conf folder */
   strcat(path, "/conf");
   if(mkdir(path, 0777) == -1) {
     fprintf(stderr, "%s directory make error: %s\n", path, strerror(errno));
     return -1;
   }
 
-  /* .asvn/conf/authz */
+  /* asvn/conf/authz */
   strcpy(path, orgpath);
   strcat(path, "/conf/authz");
   if(creat(path, 0644) == -1) {
@@ -49,7 +51,7 @@ int main()
     return -1;
   }
 
-  /* .asvn/conf/passwd */
+  /* asvn/conf/passwd */
   strcpy(path, orgpath);
   strcat(path, "/conf/passwd");
   if(creat(path, 0644) == -1) {
@@ -57,15 +59,15 @@ int main()
     return -1;
   }
 
-  /* .asvn/repos file */
+  /* asvn/repos file */
   strcpy(path, orgpath);
-  strcat(path, "/repos");
+  strcat(path, "/db");
   if(creat(path, 0644) == -1) {
     fprintf(stderr, "%s folder make error: %s\n", path, strerror(errno));
     return -1;
   }
 
-  /* .asvn/.asubversion */
+  /* asvn/.asubversion */
   strcpy(path, orgpath);
   strcat(path, "/.asubversion");
   if(mkdir(path, 0777) == -1) {

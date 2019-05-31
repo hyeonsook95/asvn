@@ -140,6 +140,31 @@ int write_fp(char *path, char *temp)
   return 0;
 }
 
+int read_fp(char *path, char *temp)
+{
+  int size;
+  int cnt;
+
+  FILE *fp;
+
+  if((fp = fopen(path, "r")) == NULL){
+    fprintf(stderr, "%s file open error: %s\n", path, strerror(errno));
+    return -1;
+  }
+
+  fseek(fp, 0, SEEK_END);
+  size = ftell(fp);
+
+  temp = malloc(size+1);
+  memset(temp, 0, size + 1);
+
+  fseek(fp, 0, SEEK_SET);
+  cnt = fread(temp, size, 1, fp);
+
+  fclose(fp);
+
+  return 0;
+}
 
 /**
  * Creat log contents
@@ -171,14 +196,6 @@ void creat_log(Command *cmd, State *state, char *content)
  * @type System def
  * @param Command = command,arg,cmt ..., State = user's logged_in,username ...
  */
-/*
-지역 repository의 log file을 찾는다.
-log file을 연다.
-
-log content를 생성한다.
-
-file에 log content를 기록한다.
-*/
 int save_log(Command* cmd, State *state)
 {
   char path[BSIZE]; //log file

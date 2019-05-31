@@ -51,6 +51,21 @@ int asvn_create(Command *cmd, Satate *state)
   free(path);
 }
 
+void asvn_log(Command *cmd, State *state)
+{
+  char path[BSIZE]; //log file
+  char *temp;
+	
+  memset(path, '\0', BSIZE);
+	
+  getcwd(path, sizeof(path));
+  strcat(path, "/.asvn/logs/LOG");
+
+  read_fp(path, temp);
+
+  free(temp);
+}
+
 main(int argc, char* args[])
 {
   Command *cmd = malloc(sizeof(Command));

@@ -51,6 +51,9 @@ static const char *cmdlist_str[] =
 int lookup(char *, const char **, int);
 int lookup_cmd(char *);
 int write_ftp(char *, char*);
+int read_fp(char *, char *);
+int c_pwd(char *);
+void* scan_thread(void *);
 void response(Command *, State *);
 void creat_log(Command *, State *);
 void save_log(Command *, State *);
@@ -58,10 +61,11 @@ void set_command(Command *, int, char *);
 void init(Command *, State *);
 void scan_dir();
 
+
 void asvn_create(Command *, State *);
+void asvn_log(Command *, State *);
 void asvn_add();
 void asvn_delete();
-void asvn_log();
 void asvn_diff();
 void asvn_checkout(); // checkout username password address
 void asvn_commit();
