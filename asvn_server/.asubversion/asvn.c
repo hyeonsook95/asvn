@@ -424,7 +424,7 @@ void docftp(char *filename,int len, int socketDisc){ //doftp를 실행한다.
      //read 1. read file all size
      sock_len = read(socketDisc,dataBuf,sizeof(dataBuf));
      fsize = atoi(dataBuf);
-     //printf("atoi : %d",atoi(dataBuf));
+     
      if(fsize!=0){
 	sock_len = write(socketDisc,"size_ok",sizeof("size_ok"));
         //read 2. num_blks_ok
