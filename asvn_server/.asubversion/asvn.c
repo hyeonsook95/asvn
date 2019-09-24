@@ -1,7 +1,5 @@
 #include "common.h"
-/* args[1] = command, args[2] = orgpath, (args[3] = newpath, args[4~] = cmt)
-** Parse inputed command from user
-*/
+
 void parse_command(int argc, char **args, Command *cmd)
 {
 	int n = argc - 2;
@@ -142,9 +140,6 @@ void write_log(Command* cmd, State *state)
 }
 
 
-
-////////////////////////////////////////////////////////////////////////////////////////////
-/*서버에서 파일을 보내줌*/
 void dofile(int newsd, char * filename)//file
 {
 int fail,req;
@@ -154,9 +149,8 @@ char buf[MAXSIZE];
 int len;
 int msg_2;
 int start_xfer;
-//char *test="sun.jpeg";
-char *path=getcwd(buf,MAXSIZE);//////////
-char *filepwd=getcwd(buf,MAXSIZE);//////////
+char *path=getcwd(buf,MAXSIZE);
+char *filepwd=getcwd(buf,MAXSIZE);
 
 
 strcat(filepwd,"/");
@@ -197,22 +191,7 @@ int len1, len2, len3;
 len1=rnum(newsd,len1);//번호읽기
 printf("len1 : %d\n", len1);
 memset(com,'\0',MAXLINE);
-/*
-rstr(newsd, com, len1);//명령어읽기
-printf("get str : %s\n",com);
 
-len2=rnum(newsd,len2);//번호읽기
-printf("len2 : %d\n", len2);
-memset(fname,'\0',MAXLINE);
-rstr(newsd, fname, len2);//파일이름읽기
-printf("get fname : %s\n",fname);
-
-len3=wnum(newsd,STARTTRANSFER);//번호쓰기
-memset(name,'\0',MAXLINE);
-printf("len3 : %d\n", len3);
-
-if(!strcmp(com,"CH")){
-*/
 asvn_retr(newsd);
 //dofile(newsd);
 printf("파일전송완료\n");
@@ -315,8 +294,6 @@ void asvn_retr(int sockid){ //doftp를 실행한다.
 				}else {
                                         //write data
                                         recv_fsize=MAXSIZE*(i+1);
-                                        //printf("write\n\n\n%s\n",temp_buf);
-                                        //printf("\n\n\n file : \n%s\n\n\n",temp_buf);
 					sock_len = write(sockid,temp_buf,sizeof(temp_buf));
                                         //printf("send data : %d/%d\n",recv_fsize,fsize);
 				}                         
@@ -449,9 +426,6 @@ void docftp(char *filename,int len, int socketDisc){ //doftp를 실행한다.
      fsize = atoi(dataBuf);
      //printf("atoi : %d",atoi(dataBuf));
      if(fsize!=0){
-        //printf("here come ");
-        //fsize = atoi(dataBuf);//num_blks , num_blks1,num_last_blk
-        //write ok
 	sock_len = write(socketDisc,"size_ok",sizeof("size_ok"));
         //read 2. num_blks_ok
         sock_len = read(socketDisc,dataBuf,sizeof(dataBuf));

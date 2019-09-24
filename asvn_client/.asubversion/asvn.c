@@ -440,9 +440,6 @@ int no_read ,tmp, len;
 char fname[MAXLINE];
 fail = FILENAMEOK;
 
-//printf("filename : %s\n", name);//들어온 파일이름확인
-//printf("fail : %d\n", fail);//fail설정값확인
-
 len= strlen(name);//len, 들어온 이름값의 길이확인
 printf("filelen : %d\n", len);
 
@@ -485,12 +482,7 @@ void doftp(int sockid){ //doftp를 실행한다.
     num_blks = 0;
     num_last_blk = 0;
     int req=0;
-    //memset(fname,'\0',MAXLINE);
-    //printf("name : %s ", fname);
 
-//클라이언트로 부터 파일이름을 읽어들여서 그 파일로 쓴다.
-//   fail = FILENAMEOK;
-/////////////////클라이언트로부터 파일이름을 읽어들인다.
 	memset(fname,'\0',MAXLINE);
       req=rnum(sockid,req);//번호읽기
       printf("get num : %d\n", req);
@@ -628,7 +620,6 @@ void main(int argc, char* args[])
 	int sockid,i=0;
 	fname[0]="text.txt";
 	fname[1]="sun.jpeg";
-//	fname[1]="CH";
 	printf("1: %s\n",fname[0]);
 	printf("2: %s\n",fname[1]);
    Command *cmd = malloc(sizeof(Command));

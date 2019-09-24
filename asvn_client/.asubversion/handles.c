@@ -108,16 +108,6 @@ void ftp_quit(State *state)
   exit(0);
 }
 
-/*
-int rnum(int sock, int no){//소켓넘버,받으려는 수
-    no = 0;
-if ((readn(sock,(char *)&no,sizeof(no)))< 0)////////
-        {printf("read  error :%d\n", errno); exit(0); }
-        printf("no : %d\n",no);
-    no = ntohs(no);/////////////////////
-   return no;
-}
-*/
 
 int rnum(int sock, int no){//소켓넘버,받으려는 수
     no = 0;
@@ -138,81 +128,7 @@ int rnum(int sock, int no){//소켓넘버,받으려는 수
     no=atoi(dataBuf);
    return no;
 }
-/*
-char *rstr(int sock, char fname[],int len){//socketNumber, str, strlen
-char name[len];
-memset(name,'\0',len);
-    if((read(sock,fname,len)) < 0) {
-        printf("server: filename read error :%d\n",errno);
-		printf("now im in read error\n");
-        }
-//	printf("fname :%s\n",fname);
-//	printf(" name : %s , fname : %s \n", name, fname);
-	strncpy(name,fname,len-1);
-printf(" name : %s , fname : %s \n", name, fname);
-	return name;
-}
 
-
-int wnum(int sock,int setnum){//socketNUM, WRITING NUM
-//printf("start\n");
-	int sendnum;
-	sendnum = setnum;
-    sendnum = htons(sendnum);//////////////////////
-    if ((writen(sock,(char *)&sendnum,sizeof(sendnum)))< 0){
-	printf("write  error :%d\n", errno); exit(0);
-           }
-	printf("sendnum : %d\n",sendnum);
-  //  printf("COMPLETE\n");
-
-	return sendnum;
-}
-
-
-char * wstr(int sock, char fname[], int len){
-if((writen(sock,fname,len)<0)){
-	printf("client :  write error %d\n",errno);
-	exit(0);
-	}
-	printf("fname : %s\n",fname);
-	return fname;
-}
-
-
-int readn(int sd,const char *ptr,int size)
-
-{         int no_left,no_read;
-          no_left = size;
-          while (no_left > 0) 
-                     { no_read = read(sd,ptr,no_left);
-                       if(no_read <0)  return(no_read);
-                       if (no_read == 0) break;
-                       no_left -= no_read;
-                       ptr += no_read;
-                     }
-          return(size - no_left);
-}
-
-
-int writen(int sd,const void *ptr,int size)
-{         int no_left,no_written;
- //        const char *ptr =NULL;
-//             ptr=ptr;
-           no_left = size;
-           while (no_left > 0) 
-                      { 
-			if((no_written = write(sd,ptr,no_left))<=0){
-                        if(no_written <0&& errno==EINTR)
-				no_written =0; 
-			else
-				return(-1);
-			}
-                        no_left -= no_written;
-                       ptr += no_written;
-                     } 
-           return(no_left);
-}
-*/
 void asvn_update(){
 int sockid;
  printf("socket staring\n");
@@ -235,7 +151,6 @@ void response(Command *cmd, State *state)
     case QUIT: ftp_quit(state); break;
     default:
       state->message = "500 Unknown command\n";
-      //write_state(state);
       break;
   }
 }
