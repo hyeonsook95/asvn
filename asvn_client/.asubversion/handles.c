@@ -1,6 +1,6 @@
 #include "common.h"
 
-/*new*/
+
 void asvn_remove(Command *cmd, State *state)
 {
 	if (remove(cmd->arg) ==-1){
@@ -11,7 +11,7 @@ void asvn_remove(Command *cmd, State *state)
 	write_log(cmd, state);
 }
 
-/*new*/
+
 void asvn_pwd(Command *cmd, State *state)
 {
 	char currentpath[BSIZE];
@@ -22,7 +22,7 @@ void asvn_pwd(Command *cmd, State *state)
 	printf("%s\n", currentpath);
 }
 
-/*new*/
+
 void asvn_readlog(Command *cmd, State *state)
 {
 	char logpath[BSIZE];
@@ -40,7 +40,7 @@ void asvn_readlog(Command *cmd, State *state)
 	}
 
 	printf("---------------------------------------------------------------\n");
-	while(fgets(temp, 1024, fp_log)){
+	while (fgets(temp, 1024, fp_log)) {
 		printf("%s", temp);
 	}
 	printf("---------------------------------------------------------------\n");
@@ -49,7 +49,7 @@ void asvn_readlog(Command *cmd, State *state)
 
 	
 }
-/*new*/
+
 void asvn_mkdir(Command *cmd, State *state)
 {
 	char *dirpath = NULL;
@@ -104,13 +104,13 @@ void asvn_creat(Command *cmd, State *state) //enum 23
 void ftp_quit(State *state)
 {
   state->message = "221 Goodbye, friend. I never thought I'd die like this.\n";
-  //write_state(state); 
   exit(0);
 }
 
 
-int rnum(int sock, int no){//소켓넘버,받으려는 수
-    no = 0;
+int rnum(int sock, int no)
+{//소켓넘버,받으려는 수
+	no = 0;
     //read
     sock_len =read(sock,dataBuf,512);
     if(sock_len<0){
@@ -129,28 +129,28 @@ int rnum(int sock, int no){//소켓넘버,받으려는 수
    return no;
 }
 
-void asvn_update(){
-int sockid;
- printf("socket staring\n");
-   sockid= sock();
-//클라이언트로부터 파일을 보낼 때
-doftp(sockid);
-printf("asvn is updatign .. \n");
-
+void asvn_update()
+{
+    int sockid;
+    printf("socket staring\n");
+       sockid= sock();
+    //클라이언트로부터 파일을 보낼 때
+    doftp(sockid);
+    printf("asvn is updatign .. \n");
 }
 
 void response(Command *cmd, State *state)
 {
-   switch(lookup_cmd(cmd->command)){ //user function -> command's enum number
-    case CREAT: asvn_creat(cmd,state); break;
-    case UP: asvn_update(); break;
-    case LOG: asvn_readlog(cmd,state); break;
-    case MKDIR: asvn_mkdir(cmd,state); break;
-    case DELETE: asvn_remove(cmd,state); break;
-    case PWD: asvn_pwd(cmd, state); break;
-    case QUIT: ftp_quit(state); break;
-    default:
-      state->message = "500 Unknown command\n";
-      break;
-  }
+    switch(lookup_cmd(cmd->command)){ //user function -> command's enum number
+        case CREAT: asvn_creat(cmd,state); break;
+        case UP: asvn_update(); break;
+        case LOG: asvn_readlog(cmd,state); break;
+        case MKDIR: asvn_mkdir(cmd,state); break;
+        case DELETE: asvn_remove(cmd,state); break;
+        case PWD: asvn_pwd(cmd, state); break;
+        case QUIT: ftp_quit(state); break;
+        default:
+     	    state->message = "500 Unknown command\n";
+     	    break;
+    }
 }

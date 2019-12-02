@@ -88,7 +88,6 @@ static const char *cmdlist_str[] =
 static char *welcome_message = "A very warm welcome!";
 
 /*Don't use Network*/
-//void write_state(State *);
 void asvn_creat(Command *, State *);
 void asvn_mkdir(Command *, State *);
 void asvn_readlog(Command *, State *);
@@ -103,7 +102,6 @@ void creat_log(Command *, State *, char []);
 int lookup_cmd(char *);
 int lookup(char *, const char **, int);
 
-//void rename_path(char *);
 void parse_command(int, char **, Command *);
 void str_perm(int, char *);
 void my_wait(int);
