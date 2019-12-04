@@ -74,15 +74,13 @@ typedef struct Command
 /* Commands enumeration */
 typedef enum cmdlist 
 { 
-  LOG, CREAT, COMMIT, CH, UP, PWD, QUIT, MKDIR, DELETE, ADD,
-  MV, DIFF, MERGE
+  CREAT, QUIT, UP
 } cmdlist;
 
 /* String mappings for cmdlist */
 static const char *cmdlist_str[] = 
 {
-   "LOG", "CREAT", "COMMIT", "CH", "UP", "PWD", "QUIT", "MKDIR", "DELETE", "ADD", 
-   "MV", "DIFF", "MERGE","UP"
+   "CREAT", "QUIT", "UP"
 };
 
 
