@@ -4,28 +4,19 @@
 
 FTP 프로그래밍을 이용하여 서버와 클라이언트 간의 파일 전송을 구현하고, 버전관리를 위한 기능을 구현합니다.
 
-## Program Stacks
+## 맡은 역할
+
+- Makefile 구현
+- 관리 디렉토리 설계, 구현
+- 명령어 처리 구조 설계, 구현
+- 사용자 함수 설계, 구현
+
+## Project Stack
 
 - C
-- Ubuntu 16.04
 - gcc
 - make
-
-## Program Design
-
-### Usecase
-
-![usecase](./img/asvn_usecase.jpg)
-
-### Files Design
-
-![files](./img/asvn_file-struct.jpg)
-
-### Command Design
-
-![command](./img/asvn_command-diagram.jpg)
-
-![command](./img/asvn_command-struct.jpg)
+- ftp protocol
 
 ### Running
 
