@@ -171,7 +171,7 @@ void write_log(Command *cmd, State *state)
 	}
 }
 
-/* 현재 저장소의 log 파일이 어디있는지 알려주는 함수 */
+/* 현재 저장소의 log 파일의 경로를 전역변수 path에 저장하는 함수 */
 void logfile(char path[100])
 {
 	char *asvnpath = NULL;

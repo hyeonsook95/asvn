@@ -11,9 +11,11 @@ FTP 프로그래밍을 이용하여 서버와 클라이언트 간의 파일 전�
 - Makefile 구현
 - 관리 디렉토리 설계, 구현
 - 명령어 처리 구조 설계, 구현
-    - parse_command(), response(), creat_log(), write_log(), logfile(), lookup_cmd(), lookup()
-- 사용자 함수 설계, 구현
+    - parse_command(), response()
+- 서버와 관련없는 사용자 함수 설계, 구현
     - asvn_remove(), asvn_pwd(), asvn_readlog(), asvn_mkdir(), asvn_creat()
+- 로그를 위한 함수 설계 및 구현.
+    - creat_log(), write_log(), logfile(), lookup_cmd(), lookup()
 
 ## Project Stack
 
